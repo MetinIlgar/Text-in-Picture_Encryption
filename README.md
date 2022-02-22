@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/MetinIlgar/">
-    <img src="/Images/" alt="Logo">
+    <img src="/Images/icon.png" alt="Logo" width="300px">
   </a>
 
   <h3 align="center">Text-in-Picture_Encryption</h3>
@@ -42,7 +42,7 @@
 		<li>
 			<a href="#usage">Usage</a>
 			<ul>
-				<li><a href="#import-phone-numbers">Import Phone Numbers</a></li>
+				<li><a href="#run-the-software">Run The Software</a></li>
 			</ul>
 		</li>
 		<li><a href="#roadmap">Roadmap</a></li>
@@ -55,14 +55,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Anyone can send single or group messages from Whatsapp. However, you cannot set the timer according to each country's time zone and easily send the message you want at the time you want.
+You can use it to encrypt any text you want inside images. There are 2 different methods. Versions 0.1 and 0.2. You can choose optionally. It is recommended to use Version 0.2.
 
-With this program, you can import phone numbers, edit the phone numbers list and send your message at the specified time. It doesn't matter which country you ship to.
-
-Here are the reasons why you should use this program:
-* You can send single or multiple messages at any time. 
-* Thanks to the timer you set, you can send messages in each country's own time zone. 
-* For example, the message you send at 10:00 will be sent to the person in America, to the person in England, to the person in Turkey when the time zone in that country reaches 10:00.
+The application is under development. Errors may occur in long texts that are intended to be encrypted.
 
 You can suggest changes by forking this repository and creating a pull request or opening an issue.
 
@@ -71,7 +66,7 @@ You can suggest changes by forking this repository and creating a pull request o
 * [OpenCV](https://opencv.org/)
 * [argparse](https://docs.python.org/3/library/argparse.html)
 * [sys](https://docs.python.org/3/library/sys.html)
-
+* [numpy](https://numpy.org/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -92,27 +87,37 @@ Type this command in the console to install the required libraries:
    ```sh
    git clone https://github.com/MetinIlgar/Text-in-Picture_Encryption.git
    ```
-2. Run the software
-   ```sh
-   python run.py -enc -img picture.png -txt 'sample text 
-   ```
-   ```sh
-   python run.py -dec -img picture.png -len 100 
-   ```
+2. See next step to run the software
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-### Import phone numbers
-To send multiple messages, you need to import phone numbers. You can do this in 2 ways:
-1. From Excel file.
-2. From the vCard file you imported from the sim card.
+### Run The Software
+ * for version 0.1
+   ```sh
+   python run.py -enc -img picture.png -txt 'sample text'
+   ```
+   ```sh
+   python run.py -dec -img picture.png -len 100 
+   ```
+   * for version 0.2
+   ```sh
+   python run.py -enc2 -img picture.png -txt 'sample text'
+   ```
+   ```sh
+   python run.py -dec2 -img picture.png
+   ```
 
-* You can edit the given excel file according to your own phone number as in the table example below.
+### Original Picture
+![Original Picture](/Images/sample.jpg/)
 
-![Sample Excel Spreadsheet](/Images/)
+### Image encrypted with Version 0.1
+![Image encrypted with Version 0.1](/Images/EncryptionImage%20v0.1.png/)
 
-* Or, using a vCard with the ".vcf" file extension, convert your phone numbers to an excel file and import them in a format that the program can use.
+### Image encrypted with Version 0.2
+![Image encrypted with Version 0.2](/Images/EncryptionImage%20v0.2.png/)
+
+
 
 
 
