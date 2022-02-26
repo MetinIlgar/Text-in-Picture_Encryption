@@ -1,5 +1,6 @@
 import numpy as np
 
+#------------------------------------ Commands for Version 0.1 ------------------------------------
 def ascii2hex(ascii_val):
     return ascii_val.encode().hex()
 
@@ -20,6 +21,7 @@ def hex2ascii(hex_val):
     except:
         return False
 
+# Encryption version 0.1
 def encryptImg(text, Image):
     encrypt_word_list = []
     i=0
@@ -50,6 +52,7 @@ def encryptImg(text, Image):
             break
     return Image
 
+# Decryption version 0.1
 def decodingImg(Image,long):
     height = Image.shape[0]
     width = Image.shape[1]
@@ -73,14 +76,37 @@ def decodingImg(Image,long):
             break
     return "".join(decode_list)
 
+#------------------------------------ Commands for Version 0.2 ------------------------------------
+def text2binary(text):
+    return ''.join(format(i, '08b') for i in bytearray(text, encoding='utf-8'))
+
+def binary2text(binaryCode):
+    if len(binaryCode) == 8:
+        return str(bytes([int(binaryCode, 2)]).decode('utf-8'))
+    elif len(binaryCode) != 8 and len(binaryCode) % 8 == 0:
+        a = 0
+        word = ""
+        while len(binaryCode) > a:
+            i = binaryCode[a:a+8]
+            print(i)
+            word = word + str(bytes([int(i, 2)]).decode('utf-8'))
+            a = a + 8
+        return word
+    else:
+        return ""
+
+# Encryption version 0.2
 def encryptImg2(text, Image):
     l1= []
     l2= []
     height = Image.shape[0]
     width = Image.shape[1]
 
-    res = ''.join(format(i, '08b') for i in bytearray(text, encoding='utf-8'))
-    if len(res) % 3 == 0:
+    text = text + "ThisIsTheEndOfTheMessage."
+
+    res = text2binary(text)
+
+    if (len(res) % 3 == 0):
         pass
     else:
         for x in range(0, (3 - (len(res) % 3))):
@@ -110,43 +136,28 @@ def encryptImg2(text, Image):
             break
     return Image
 
+# Decryption version 0.2
 def decodingImg2(Image):
     height = Image.shape[0]
     width = Image.shape[1]
     binary = ""
-    count = 0
-    count2 = 0
+    wl = ""
+    key = "ThisIsTheEndOfTheMessage"
+
     for h in range(0, height, 2):
         for w in range(0, width):
             a = (Image[h+1, w] - Image[h, w])
             for i in a:
                 binary = binary + str(i)
-                if i == 0:
-                    count2 = count2 + 1
+                if len(binary) % 8 == 0:
+                    wl = wl + binary2text(binary)
+                    binary = ""
 
-                    if count2 == 3:
-                        count = count + 1
 
-            count2 = 0
-
-            if count == 100:
+            if key in wl:
                 break
-        if count == 100:
+        if key in wl:
             break
-    b = ""
-    bl = []
-    for x in binary:
-        b = b+x
-        if len(b) % 8 == 0:
-            if int(b) == 0:
-                b = ""
-                continue
-            bl.append(b)
-            b=""
 
-    return str(bytes([int(x,2) for x in bl]).decode('utf-8'))
-
-
-
-
+    return wl[:-len(key)]
 
