@@ -1,61 +1,110 @@
 import encryption
 import cv2 as cv
-import sys
+import sys, os
 import argparse
 
 # Project Information
 parser = argparse.ArgumentParser(prog = "Text-in-picture encryption.",
                                  description = "This application is for encryption and decryption on the picture.",
                                  epilog = "This software was created by Metin Ilgar Mutlu.")
-#------------------------------------ Commands for Version 0.1 ------------------------------------
-# Encryption version 0.1
+
+# Encryption
 parser.add_argument("--encode", "-enc",
                     help = """Indicates that it wants to encrypt the text into the image.\n
-                    Example: python run.py -enc -img picture.png -txt 'sample text'""",
+                     Example: python run.py -enc -img picture.png -txt 'sample text'""",
                     action="store_true")
-# Decryption version 0.1
-parser.add_argument("--decode", "-dec",
-                    help = """Indicates that you want to decrypt the image.\n
-                    Example: python run.py -dec -img picture.png -len 100""",
+# Decryption
+parser.add_argument("--decode", "-dec", help = """Indicates that you want to decrypt the image.\n
+                                               Example: python run.py -dec -img picture.png""",
                     action="store_true")
-#------------------------------------ Commands for Version 0.2 ------------------------------------
-# Encryption version 0.2
-parser.add_argument("--encode2", "-enc2",
-                    help = """Indicates that it wants to encrypt the text into the image.\n
-                     Example: python run.py -enc2 -img picture.png -txt 'sample text'""",
-                    action="store_true")
-# Decryption version 0.2
-parser.add_argument("--decode2", "-dec2", help = """Indicates that you want to decrypt the image.\n
-                                               Example: python run.py -dec2 -img picture.png""",
-                    action="store_true")
-parser.add_argument("--image", "-img" , help = "Specifies the file path of the image.", type=str, required=True)
+parser.add_argument("--image", "-img" , help = "Specifies the file path of the image.", type=str)
 parser.add_argument("--text", "-txt", help = "Specifies the text you want to encrypt.", type=str)
-parser.add_argument("--length", "-len", help = "Estimated length of encrypted text.", type=int)
+
 data = parser.parse_args()
 
-img = cv.imread(data.image)
-if img is None:
-    sys.exit("Could not read the image.")
+def heading():
+    head = """
+████████╗███████╗██╗░░██╗████████╗░░░░░░██╗███╗░░██╗░░░░░░██████╗░██╗░█████╗░████████╗██╗░░░██╗██████╗░███████╗
+╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝░░░░░░██║████╗░██║░░░░░░██╔══██╗██║██╔══██╗╚══██╔══╝██║░░░██║██╔══██╗██╔════╝
+░░░██║░░░█████╗░░░╚███╔╝░░░░██║░░░█████╗██║██╔██╗██║█████╗██████╔╝██║██║░░╚═╝░░░██║░░░██║░░░██║██████╔╝█████╗░░
+░░░██║░░░██╔══╝░░░██╔██╗░░░░██║░░░╚════╝██║██║╚████║╚════╝██╔═══╝░██║██║░░██╗░░░██║░░░██║░░░██║██╔══██╗██╔══╝░░
+░░░██║░░░███████╗██╔╝╚██╗░░░██║░░░░░░░░░██║██║░╚███║░░░░░░██║░░░░░██║╚█████╔╝░░░██║░░░╚██████╔╝██║░░██║███████╗
+░░░╚═╝░░░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░░░░░░░╚═╝╚═╝░░╚══╝░░░░░░╚═╝░░░░░╚═╝░╚════╝░░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚══════╝
+
+            ███████╗███╗░░██╗░█████╗░██████╗░██╗░░░██╗██████╗░████████╗██╗░█████╗░███╗░░██╗
+            ██╔════╝████╗░██║██╔══██╗██╔══██╗╚██╗░██╔╝██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║
+            █████╗░░██╔██╗██║██║░░╚═╝██████╔╝░╚████╔╝░██████╔╝░░░██║░░░██║██║░░██║██╔██╗██║
+            ██╔══╝░░██║╚████║██║░░██╗██╔══██╗░░╚██╔╝░░██╔═══╝░░░░██║░░░██║██║░░██║██║╚████║
+            ███████╗██║░╚███║╚█████╔╝██║░░██║░░░██║░░░██║░░░░░░░░██║░░░██║╚█████╔╝██║░╚███║
+            ╚══════╝╚═╝░░╚══╝░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░░░░░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝        
+
+                                                                                    𝑴𝒂𝒅𝒆 𝒃𝒚 𝑴𝒆𝒕𝒊𝒏 𝑰𝒍𝒈𝒂𝒓 𝑴𝒖𝒕𝒍𝒖
+                                                                                    
+                                                                                    
+                    > Encrypt text to image.
+                    > Version 2.0
+                                                                                  
+"""
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print(head)
+    print("\tEnter The Image Path: ")
+    img = input("\t\t> ")
+    img = cv.imread(img)
+    if img is None:
+        sys.exit("Could not read the image.")
+
+    while True:
+        print("\n\tSelect an action.\n\t[1] Image encryption\n\t[2] Image decryption")
+        c = input("\t\t> ")
+        if c == "1":
+            print("\n\tText to be encrypted:")
+            text = input("\t\t> ")
+            encryption.encryptImg(text, img)
+            cv.imwrite("EncryptionImage.png", img)
+            break
+        elif c == "2":
+            text = encryption.decodingImg(img)
+            output = open("output.txt", "w")
+            output.write(text)
+            output.close()
+            print("\tText: " +text)
+            break
+        else:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Choose a valid action.")
 
 
-if data.decode == False and data.encode == True and data.decode2 == False and data.encode2 == False:
-    encryption.encryptImg(data.text,img)
+if data.decode == False and data.encode == False :
+    heading()
+
+elif data.decode == False and data.encode == True:
+    img = data.image
+    text = data.text
+    if text is None:
+        print("\tText to be encrypted:")
+        text = input("\t\t> ")
+    if img is None:
+        print("\n\tEnter the image path:")
+        img = input("\t\t> ")
+
+    img = cv.imread(img)
+    if img is None:
+        sys.exit("Could not read the image.")
+
+    encryption.encryptImg(text, img)
     cv.imwrite("EncryptionImage.png", img)
-elif data.decode == True and data.encode == False and data.decode2 == False and data.encode2 == False:
-    text = encryption.decodingImg(img,data.length)
+
+elif data.decode == True and data.encode == False:
+    img = data.image
+    if img is None:
+        print("\tEnter the image path:")
+        img = input("\t\t> ")
+
+    img = cv.imread(img)
+    if img is None:
+        sys.exit("Could not read the image.")
+    text = encryption.decodingImg(img)
     output = open("output.txt", "w")
     output.write(text)
     output.close()
-    print(text)
-elif data.decode == False and data.encode == False and data.decode2 == True and data.encode2 == False:
-    text = encryption.decodingImg2(img)
-    output = open("output.txt", "w")
-    output.write(text)
-    output.close()
-    print(text)
-elif data.decode == False and data.encode == False and data.decode2 == False and data.encode2 == True:
-    encryption.encryptImg2(data.text, img)
-    cv.imwrite("EncryptionImage.png", img)
-else:
-    print("Wrong use.")
-
+    print("\tText: "+text)
