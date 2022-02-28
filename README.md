@@ -55,9 +55,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-You can use it to encrypt any text you want inside images. There are 2 different methods. Versions 0.1 and 0.2. You can choose optionally. It is recommended to use Version 0.2.
-
-The application is under development. Errors may occur in long texts that are intended to be encrypted.
+You can use it to encrypt any text you want inside images. 
 
 You can suggest changes by forking this repository and creating a pull request or opening an issue.
 
@@ -66,6 +64,7 @@ You can suggest changes by forking this repository and creating a pull request o
 * [OpenCV](https://opencv.org/)
 * [argparse](https://docs.python.org/3/library/argparse.html)
 * [sys](https://docs.python.org/3/library/sys.html)
+* [os](https://docs.python.org/3/library/os.html)
 * [numpy](https://numpy.org/)
 
 <!-- GETTING STARTED -->
@@ -93,28 +92,22 @@ Type this command in the console to install the required libraries:
 ## Usage
 
 ### Run The Software
- * for version 0.1
    ```sh
    python run.py -enc -img picture.png -txt 'sample text'
    ```
+   or
    ```sh
-   python run.py -dec -img picture.png -len 100 
+   python run.py -dec -img picture.png
    ```
-   * for version 0.2
+   or
    ```sh
-   python run.py -enc2 -img picture.png -txt 'sample text'
-   ```
-   ```sh
-   python run.py -dec2 -img picture.png
+   python run.py
    ```
 
-### Original Picture
+### Original Image
 ![Original Picture](/Images/sample.jpg/)
 
-### Image encrypted with Version 0.1
-![Image encrypted with Version 0.1](/Images/EncryptionImage%20v0.1.png/)
-
-### Image encrypted with Version 0.2
+### Encrypted Image
 ![Image encrypted with Version 0.2](/Images/EncryptionImage%20v0.2.png/)
 
 
