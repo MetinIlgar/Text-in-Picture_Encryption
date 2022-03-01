@@ -1,5 +1,5 @@
 import encryption
-import cv2 as cv
+from PIL import Image
 import sys, os
 import argparse
 
@@ -48,10 +48,11 @@ def heading():
     os.system('cls' if os.name == 'nt' else 'clear')
     print(head)
     print("\tEnter The Image Path: ")
-    img = input("\t\t> ")
-    img = cv.imread(img)
-    if img is None:
-        sys.exit("Could not read the image.")
+    img_path = input("\t\t> ")
+    try:
+        img = Image.open(img_path)
+    except:
+        sys.exit(f"{img_path} Unable to find image")
 
     while True:
         print("\n\tSelect an action.\n\t[1] Image encryption\n\t[2] Image decryption")
@@ -59,8 +60,8 @@ def heading():
         if c == "1":
             print("\n\tText to be encrypted:")
             text = input("\t\t> ")
-            encryption.encryptImg(text, img)
-            cv.imwrite("EncryptionImage.png", img)
+            encrypt_Img = encryption.encryptImg(text, img)
+            encrypt_Img.save("EncryptionImage.png")
             break
         elif c == "2":
             text = encryption.decodingImg(img)
@@ -85,24 +86,26 @@ elif data.decode == False and data.encode == True:
         text = input("\t\t> ")
     if img is None:
         print("\n\tEnter the image path:")
-        img = input("\t\t> ")
+        img_path = input("\t\t> ")
 
-    img = cv.imread(img)
-    if img is None:
-        sys.exit("Could not read the image.")
+    try:
+        img = Image.open(img_path)
+    except:
+        sys.exit(f"{img_path} Unable to find image")
 
-    encryption.encryptImg(text, img)
-    cv.imwrite("EncryptionImage.png", img)
+    encrypt_Img = encryption.encryptImg(text, img)
+    encrypt_Img.save("EncryptionImage.png")
 
 elif data.decode == True and data.encode == False:
     img = data.image
     if img is None:
         print("\tEnter the image path:")
-        img = input("\t\t> ")
+        img_path = input("\t\t> ")
 
-    img = cv.imread(img)
-    if img is None:
-        sys.exit("Could not read the image.")
+    try:
+        img = Image.open(img_path)
+    except:
+        sys.exit(f"{img_path} Unable to find image")
     text = encryption.decodingImg(img)
     output = open("output.txt", "w")
     output.write(text)

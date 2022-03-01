@@ -19,7 +19,7 @@
     ·
     <a href="https://github.com/MetinIlgar/Text-in-Picture_Encryption/issues">Request Feature</a>
   </p>
-</p>
+
 
 
 <!-- TABLE OF CONTENTS -->
@@ -61,11 +61,10 @@ You can suggest changes by forking this repository and creating a pull request o
 
 ### Built With
 
-* [OpenCV](https://opencv.org/)
+* [Pillow](https://python-pillow.org/)
 * [argparse](https://docs.python.org/3/library/argparse.html)
 * [sys](https://docs.python.org/3/library/sys.html)
 * [os](https://docs.python.org/3/library/os.html)
-* [numpy](https://numpy.org/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -105,13 +104,10 @@ Type this command in the console to install the required libraries:
    ```
 
 ### Original Image
-![Original Picture](/Images/sample.jpg/)
+![Original Image](/Images/sample.jpg/)
 
 ### Encrypted Image
-![Image encrypted with Version 0.2](/Images/EncryptionImage%20v0.2.png/)
-
-
-
+![Image encrypted](/Images/EncryptionImage.png/)
 
 
 <!-- ROADMAP -->
